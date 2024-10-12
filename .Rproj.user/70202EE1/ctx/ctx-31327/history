@@ -1,0 +1,307 @@
+library(tidyverse)
+counties <- readRDS("data/counties.rds")
+library(tidyverse)
+counties <- readRDS("data/counties.rds")
+counties_selected <- counties %>%
+select(state, county, population, private_work, public_work, self_employed)
+count(
+ungroup(
+slice_max(
+summarize(
+group_by(counties_selected, state, metro),
+total_pop = sum(population)),
+total_pop, n = 1)),
+metro)
+counties_selected %>%
+group_by(state, metro) %>%
+summarize(total_pop = sum(population)) %>%
+slice_max(total_pop, n = 1) %>%
+ungroup() %>%
+count(metro)
+library(tidyverse)
+counties <- readRDS("data/counties.rds")
+counties_selected <- counties %>%
+select(region, state, county, metro, population, walk)
+count(
+ungroup(
+slice_max(
+summarize(
+group_by(counties_selected, state, metro),
+total_pop = sum(population)),
+total_pop, n = 1)),
+metro)
+counties_selected %>%
+group_by(state, metro) %>%
+summarize(total_pop = sum(population)) %>%
+slice_max(total_pop, n = 1) %>%
+ungroup() %>%
+count(metro)
+counties_selected %>%
+group_by(state, metro)
+counties_selected %>%
+group_by(state, metro)
+counties_selected %>%
+group_by(state, metro) %>%
+summarize(total_pop = sum(population))
+counties_selected %>%
+group_by(state, metro) %>%
+summarize(total_pop = sum(population)) %>%
+slice_max(total_pop, n = 1)
+counties_selected %>%
+group_by(state, metro) %>%
+summarize(total_pop = sum(population)) %>%
+slice_max(total_pop, n = 1) %>%
+ungroup()
+counties_selected %>%
+group_by(state, metro) %>%
+summarize(total_pop = sum(population)) %>%
+slice_max(total_pop, n = 1) %>%
+ungroup() %>%
+count(metro)
+reticulate::repl_python()
+library(tidyverse)
+# Utilisez la base de données de quartiers de kinshasa pour les exercices
+counties <- readRDS("data/counties.rds")
+names(counties)
+counties %>%
+rename(id = census_id)
+range(counties$unemployment)
+counties %>%
+rename(id = census_id,
+unemployment_rate = unemployment)
+counties %>%
+rename(id = census_id,
+nb_men = men)
+counties %>%
+rename(id = census_id,
+nb_men = men) %>%
+select(id, nb_men)
+names(counties)
+names(counties)
+counties_selected <- counties %>%
+select(region, state, county, population, income)
+counties %>%
+rename(id = census_id,
+us_state = state)
+counties %>%
+select(id = census_id, us_state = state)
+toupper(names(counties_selected))
+counties %>%
+mutate(density = population / land_area) %>%
+select(state, county, population, density)
+counties %>%
+# Keep the state, county, and populations columns, and add a density column
+transmute(state, county, population, density = population / land_area) %>%
+# Filter for counties with a population greater than one million
+#  filter(population > 1000000) %>%
+# Sort density in ascending order
+arrange(density)
+counties %>%
+mutate(density = population / land_area) %>%
+select(state, county, population, density)
+counties %>%
+mutate(density = population / land_area) %>%
+select(state, county, population, density)
+counties %>%
+mutate(density = population / land_area) %>%
+select(state, county, population, density) %>%
+arrange(density)
+str(counties)
+counties$metro <- factor(counties$metro)
+str(counties)
+counties %>%
+summarise(metro_new = recode(metro, "Metro" = "Metro", "Nonmetro" = "Non metro")) %>%
+count(metro_new)
+library(tidyverse)
+# Utilisez la base de données de quartiers de kinshasa pour les exercices
+counties <- readRDS("data/counties.rds")
+str(counties)
+counties %>%
+summarise(metro_new = recode(metro, "Metro" = "Metro", "Nonmetro" = "Non metro")) %>%
+count(metro_new)
+5000*100
+(5000*100)/2200
+View(counties)
+summary(counties)
+summary(counties$population)
+counties %>%
+mutate(population_group = ifelse(population > 25000, "> 25000 +", "<= 25000")) %>%
+select(population, population_group)
+counties %>%
+summarise(metro_new = recode(metro, "Metro" = "Metro", "Nonmetro" = "Non metro")) %>%
+count(metro_new)
+counties %>%
+summarise(metro_new = recode(metro, "Metro" = "Avec Metro", "Nonmetro" = "Sans metro")) %>%
+count(metro_new)
+counties %>%
+mutate(metro_new = recode(metro, "Metro" = "Avec Metro", "Nonmetro" = "Sans metro")) %>%
+count(metro_new)
+counties %>%
+select(income) %>%
+mutate(income_cat = case_when(
+income >= 17000 & income <= 40000 ~ "17000-40000",
+income > 40000 & income <= 46000 ~ "40001-46000",
+income > 46000 & income <= 50000 ~ "46001-50000",
+TRUE ~ ">50000"
+))
+?case_when
+counties %>%
+select(income) %>%
+mutate(income_cat = case_when(
+income >= 17000 & income <= 40000 ~ "17000-40000",
+income > 40000 & income <= 46000 ~ "40001-46000",
+income > 46000 & income <= 50000 ~ "46001-50000",
+TRUE ~ ">50000"
+))
+counties %>%
+select(income) %>%
+mutate(income_cat = cut(
+income, c(17000, 40000, 46000, 50000, 150000),
+labels = c("17000-40000", "40001-46000", "46001-50000", ">50000")
+))
+counties %>%
+select(income) %>%
+mutate(income_cat = case_when(
+income >= 17000 & income <= 40000 ~ "17000-40000",
+income > 40000 & income <= 46000 ~ "40001-46000",
+income > 46000 & income <= 50000 ~ "46001-50000",
+TRUE ~ ">50000"
+))
+?cut
+counties %>%
+select(income) %>%
+mutate(income_cat = cut(income,
+breaks = c(17000, 40000, 46000, 50000, 150000),
+labels = c("17000-40000", "40001-46000", "46001-50000", ">50000")
+)) %>%
+select(income_cat) %>%
+freq()
+counties %>%
+select(income) %>%
+mutate(income_cat = cut(income,
+breaks = c(17000, 40000, 46000, 50000, 150000),
+labels = c("17000-40000", "40001-46000", "46001-50000", ">50000")
+)) %>%
+select(income_cat)
+counties %>%
+select(income) %>%
+mutate(
+income_cat = cut(
+income,
+breaks = c(17000, 40000, 46000, 50000, 150000),
+labels = c("17000-40000", "40001-46000", "46001-50000", ">50000")
+))
+View(counties)
+library(tidyr)
+country <- c("Belgium", "France", "Germany", "Italy", "Spain", "Switzerland")
+`2002` <- c(10311970, 59925035, 82350671, 57926999, 40152517, 7361757)
+`2007` <- c(10392226, 61083916, 82400996, 58147733, 40448191, 7554661)
+(df <- tibble(
+country,
+`2002`,
+`2007`
+))
+df_long <- df %>%
+pivot_longer(cols = c(`2002`, `2007`), names_to = "year", values_to = "population")
+df_long
+df_long <- df %>%
+pivot_longer(cols = c(`2002`, `2007`), names_to = "year", values_to = "population")
+df_long
+df_long <- df %>%
+pivot_longer(cols = c(`2002`, `2007`), names_to = "year", values_to = "population")
+df_long
+df_long %>%
+pivot_wider(names_from = "year", values_from = "population")
+personnes %>% semi_join(voitures)
+personnes <- tibble(
+nom = c("Sylvie", "Sylvie", "Monique", "Gunter", "Rayan", "Rayan"),
+voiture = c("Twingo", "Ferrari", "Scenic", "Lada", "Twingo", "Clio")
+)
+voitures <- tibble(
+voiture = c("Twingo", "Ferrari", "Clio", "Lada", "208"),
+vitesse = c("140", "280", "160", "85", "160")
+)
+personnes
+voitures
+personnes %>% semi_join(voitures)
+personnes %>% anti_join(voitures)
+personnes %>% anti_join(voitures, by = c(voiture = voiture))
+personnes %>% anti_join(voitures, by = c("voiture" = "voiture"))
+personnes %>% inner_join(voitures, by = c("voiture", "voiture"))
+personnes %>% inner_join(voitures)
+personnes %>% inner_join(voitures, by = c("voiture" = "voiture"))
+library(lubridate)
+today()
+now()
+Sys.time()
+Sys.Date()
+rm(list = ls())
+library(lubridate)
+datetime <- dmy_hms("2023-01-15 14:25:02")
+datetime <- dmy_hms("15-01-2023 14:25:02")
+year(datetime)
+month(datetime, label = T, abbr = F)
+wday(datetime, label = T, abbr = F)
+library(hms)
+library(hms)
+hms(datetime)
+age <- today() - datetime
+age <- today() - dmy("25-05-1999")
+age
+age <- now() - datetime
+age
+age <- today() - dmy("25-05-1999")
+age
+age <- today() - dmy("25-05-1999")
+age
+class(age)
+age <- dmy_hms("15-02-2023 14:35:02") - datetime
+age
+class(age)
+age <- dmy_hms("15-02-2023 14:35:02") - datetime
+age
+class(age)
+age <- dmy_hms("15-02-2023 14:35:02") - datetime
+datetime
+age
+class(age)
+age <- dmy_hms("15-02-2023 14:25:02") - datetime
+datetime
+age
+class(age)
+age <- dmy_hms("15-02-2023 14:25:02") - datetime
+dmy_hms("15-02-2023 14:25:02")
+datetime
+age
+class(age)
+rm(list = ls())
+datetime <- dmy_hms("15-02-2023 14:25:02")
+age <- dmy_hms("15-02-2023 14:25:02") - datetime
+dmy_hms("15-02-2023 14:25:02")
+datetime
+age
+class(age)
+age <- dmy_hms("15-02-2023 14:35:02") - datetime
+dmy_hms("15-02-2023 14:25:02")
+datetime
+age
+class(age)
+age <- dmy_hms("15-02-2023 19:35:02") - datetime
+dmy_hms("15-02-2023 14:25:02")
+datetime
+age
+class(age)
+as.duration(age)
+as.duration(age)
+as.numeric(as.duration(age))
+rm(list = ls())
+unique(counties$)
+library(tidyverse)
+counties <- readRDS("data/counties.rds")
+unique(counties$state)
+length(unique(counties$state))
+View(counties)
+vect1 <- c(10, 75, 42, 36)
+x <- c("R", "python", "spss")
+s <- c(TRUE, FALSE, TRUE)
+vect1; x; s

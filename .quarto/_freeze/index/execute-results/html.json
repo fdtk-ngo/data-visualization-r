@@ -1,0 +1,16 @@
+{
+  "hash": "d8797c2ea9625673fbedb724367b6476",
+  "result": {
+    "markdown": "# Preface {.unnumbered}\n\n\n::: {.cell}\n\n```{.r .cell-code}\nplot(1)\n```\n\n::: {.cell-output-display}\n![](index_files/figure-html/unnamed-chunk-1-1.png){width=672}\n:::\n:::\n\n\n![R](images/1%20SoBbCn6tUkhiUlgDl80PzQ.jpg){fig-align=\"center\"}\n",
+    "supporting": [
+      "index_files"
+    ],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

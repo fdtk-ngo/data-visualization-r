@@ -1,0 +1,49 @@
+# Introduction à la visualisation graphique
+
+> **Une image vaut mille mots.**
+
+![Confucius](images/confucius.PNG){fig-align="center"}
+
+La visualisation graphique est un outil essentiel pour explorer et communiquer les données de manière efficace et concise.
+
+Il s'agit d'un moyen puissant de représenter des données à travers des graphiques pour permettre une compréhension rapide et facile des informations clés. Les graphiques peuvent aider à identifier les tendances, les comparaisons et les relations entre différents ensembles de données.
+
+En utilisant des outils de visualisation graphique, il est possible de transformer des données brutes en une représentation visuellement attrayante et facilement compréhensible pour les utilisateurs.
+
+Ce chapitre explore les différents types de visualisations graphiques et les meilleures pratiques pour créer des graphiques efficaces et impactants.
+
+## Types de graphique
+
+Il existe un grand nombre de graphiques pour réprésenter les données d'une analyse. Ci-après, nous explorons différents graphiques les plus utilisés. Il est important de savoir que le choix d'un graphique dépend du type de données que vous désirez représenter et de l'objectif précis de votre représentation graphique..
+
+Voici une liste de quelques-uns des graphiques les plus courants, ainsi que les types de variables qui conviennent le mieux à chacun d'entre eux :
+
+1.  Diagramme en barres : utilisé pour représenter des données catégorielles et quantitatives discrètes.
+
+2.  Histogramme : utilisé pour représenter la distribution de données continues.
+
+3.  Diagramme circulaire : utilisé pour représenter les proportions de différentes catégories dans un ensemble de données catégoriques.
+
+4.  Diagramme en boîte : utilisé pour représenter la distribution de données numériques ainsi que les valeurs aberrantes. Il peut aussi être utilisé pour comparer différentes distributions.
+
+5.  Diagramme de dispersion : utilisé pour représenter la relation entre deux variables continues.
+
+6. Graphique linéaire ou courbe : utilisé pour représenter l'évolution d'une variable quantitative au fil du temps.
+
+6.  Graphique à aires empilées : utilisé pour représenter les proportions de différentes catégories dans un ensemble de données, mais en montrant également la contribution de chaque catégorie à l'ensemble des données.
+
+## Qualité d'un bon graphique
+
+Il est important de créer des graphiques qui communiquent clairement les informations les plus pertinentes. Voici quelques caractéristiques clés d'un bon graphique :
+
+1.  Pertinence : Le graphique doit être pertinent pour les données que vous souhaitez communiquer.
+
+2.  Simplicité : Le graphique doit être simple et facile à comprendre. Trop de détails peuvent être difficiles à interpréter.
+
+3.  Clarté : Le graphique doit être clair et facile à lire. Les étiquettes et les axes doivent être lisibles avec une police de caractères appropriée.
+
+4.  Précision : Le graphique doit être précis et ne pas tromper le lecteur. Les échelles doivent être bien choisies et les données doivent être présentées de manière juste.
+
+5.  Contraste : Le graphique doit utiliser des couleurs ou d'autres moyens de contraste pour aider à distinguer les données et les groupes de données.
+
+6.  Attractivité : Le graphique doit être attrayant et agréable à l'œil. Cela peut être accompli en utilisant des couleurs vives ou en présentant les données d'une manière nouvelle et créative.

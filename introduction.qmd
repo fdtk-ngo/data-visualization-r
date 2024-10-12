@@ -1,0 +1,141 @@
+# Introduction
+
+La manipulation et la visualisation de données sont des compétences indispensables pour tous les professionnels de l'analyse des données. La capacité à manipuler et à transformer des données brutes permet de les rendre plus accessibles et de découvrir des modèles et des relations qui ne seraient pas observables autrement. La visualisation des données permet de transmettre ces résultats de manière efficace, en générant des graphiques et des représentations visuelles qui mettent en évidence les tendances et les conclusions clés.
+
+Le logiciel R est l'un des outils les plus populaires en matière de manipulation et de visualisation de données. Il offre un large éventail de fonctions pour manipuler, analyser et visualiser des données. Pour les utilisateurs débutants, la prise en main peut être un défi, mais en acquérant les compétences nécessaires, les utilisateurs peuvent bénéficier d'une grande flexibilité pour la manipulation et la visualisation des données.
+
+## Rappel sur la structure de données
+
+Le point de départ d'une analyse de données en R est d'avoir accès aux données. Ces données doivent être stockées dans un ou des objets R. Pour utiliser R, il faut donc d'abord connaître les différents types d'objets pris en charge et savoir les manipuler.
+
+Nous avons : le vecteur, la matrice, l'array, la liste et le dataframe.
+
+Dans ce qui suit, ne ne parlons que du vecteur car il s'agit de l'objet de base de R et du dataframe car c'est la structure de données par excellence pour l'analyse de données.
+
+### Vecteur
+
+Un vecteur est un objet de base de R et correspond à une liste de valeurs.
+
+Ses propriétés fondamentales sont :
+
+-   Unidimensionnel,
+
+-   Ses valeurs sont d'un seul et même type,
+
+-   Sa longueur correspond au nombre de valeurs qu'il contient.
+
+Nous avons quatre types de base de vecteurs : les nombres réels, les nombres entiers, les chaînes de caractères et les valeurs logiques.
+
+La commande de base pour créer un vecteur est `c()`. Il suffit de fournir alors la liste des éléments que doit contenir le vecteur.
+
+```{r}
+vect1 <- c(10, 75, 42, 36) 
+x <- c("R", "python", "spss")
+s <- c(TRUE, FALSE, TRUE)
+
+vect1; x; s
+```
+
+### Dataframe
+
+Le data frame est le type d'objet qui permet de stocker des vecteurs de plusieurs types.
+
+C'est le type idéal pour stocker les jeux de données analysées en statistique ou en science de données.
+
+Propriétés :
+
+-   Bidimensionnel,
+
+-   Contient les variables en colonnes et les observations en ligne,
+
+-   Tous les vecteurs ont la même longueur.
+
+Pour créer un data frame, nous utilisons la fonction `data.frame()`. On lui donne comme argument une liste de vecteurs.
+
+```{r eval=FALSE}
+df <- data.frame(vect1, vect2, vect3)
+```
+
+`as.data.frame()` permet de convertir un objet en data frame. Il existe une version améliorée du data.frame, `tibble()` du package portant le même nom.
+
+`tibble` présente certains caractéristiques tels que :
+
+-   n'ont pas de noms de lignes (rownames),
+
+-   autorisent des noms de colonnes invalides pour les data frames (espaces, caractères spéciaux, nombres...),
+
+-   s'affchent plus intelligemment que les data frames : seules les premières lignes sont affchées, ainsi que quelques informations supplémentaires utiles (dimensions, types des colonnes...),
+
+-   ne font pas de partial matching sur les noms de colonnes,
+
+-   affchent un avertissement si on essaie d'accéder à une colonne qui n'existe pas.
+
+Vous pouvez transformer un dataframe en tibble à l'aide de la commande `as_tibble()`.
+
+## librairies
+
+Toutes les fonctions de R sont régroupée dans des librairies. Lorsque vous lancez R, les librairies de base sont chargées par défaut.
+
+Il est possible d'installer d'autres librairies pour éttendre les possibilités de R en utilisant la fonction `install.packages("nom_package")`.
+
+La commande suivante permet d'installer la librairie `dplyr`. Cette commande permet de télécharger la librairie à partir de CRAN-R. Cette opération est à réaliser une seule fois et nécessite une connexion internet.
+
+```{r eval=FALSE}
+install.packages("dplyr")
+```
+
+Pour rendre les fonctions d'un package disponible lors d'une session de travail, utilisez la fonction `library(nom_package)`. Par exemple pour utiliser les fonctions de `dplyr`, il suffit de taper :
+
+```{r eval=FALSE}
+library(dplyr)
+```
+
+## Introduction au tidyverse
+
+Tidyverse est un ensemble de packages R conçus pour simplifier la manipulation, la visualisation et la modélisation des données.
+
+Ces packages fournissent une approche cohérente et intuitive pour le traitement des données en utilisant une grammaire de données cohérente. Les packages populaires qui font partie du Tidyverse incluent ggplot2 pour la visualisation, dplyr pour la manipulation de données, tidyr pour la mise en forme et l'organisation des données, et stringr pour la manipulation de chaînes de caractères.
+
+![les packages du tidyverse](images/tidyverse_packages.png){fig-align="center"}
+
+Ces packages abordent un très grand nombre d'opérations courantes dans R (la liste n'est pas exhaustive) :
+
+-   visualisation
+
+-   manipulation des tableaux de données
+
+-   import export de données
+
+-   manipulation de variables
+
+-   extraction de données du Web
+
+-   programmation
+
+En utilisant les outils du Tidyverse, vous peuvez accélérer votre flux de travail de traitement de données et améliorer la qualité de vos codes.
+
+## Où trouver de l'aide ?
+
+### Aide à l'intérieur de R/Rstudio
+
+A l'intérieur de R, vous pouvez obtenir de l'aide (en anglais) en tapant dans la console `help("nom_de_fonction")` ou `?nom_de_fonction`, et en remplaçant `nom_de_fonction` par la focntion dont vous cherchez de l'aide. L'exemple suivant donne de l'aide pour la fonction `median()`.
+
+```{r eval=FALSE}
+help("median")
+```
+
+![Aide à l'intérieur de R](images/help_in_r.PNG){fig-align="center"}
+
+### Aide en ligne
+
+-   RStudio
+
+RStudio propose plusieurs cheat sheets (antisèches) en anglais qui proposent sur deux pages une synthèse compacte de fonctions et de leur usage selon différentes thématiques à l'adresse suivante : <https://www.rstudio.com/resources/cheatsheets/>
+
+-   Stackoverflow
+
+Stackoverflow propose de l'aide sous forme de questions/réponses sur plusieurs sujets, dont R. Vous pouvez utiliser ce lien pour accéder à l'aide : <https://stackoverflow.com/questions/tagged/r>
+
+-   Google
+
+souvent, il suffit de taper ce que l'on veut faire sur la barre de recherche du moteur de recherche pour obtenir de l'aide. Vous pouvez aussi copier/coller votre erreur sur la barre de recherche.

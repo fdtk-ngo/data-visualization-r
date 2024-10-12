@@ -1,0 +1,9 @@
+# Avant propos {.unnumbered}
+
+Ce document est un manuel de formation sur la manipulation et visualisation de données avec R dispensée par [fdtk](https://fdtk.org). Il a pour but de fournir aux apprenants un document auquel ils pourront se référer pour avoir plus de détail sur le contenu de la formation.
+
+Cette formation est conçue pour vous donner les outils nécessaires pour maîtriser les compétences de manipulation et de visualisation de données avec R. Il commence par couvrir les techniques de l'importation et de manipulation de données, notamment la manipulation de tableaux de données, le filtrage et le tri, les jointures et la transformation de données en utilisant le package `tidyverse`.
+
+La formation aborde également la création de visualisations de données avec R, en couvrant les différents types de graphiques, les cartes, et les visualisations interactives.
+
+Il est organisé en 5 chapitres permettant d'aquérrir des compétances en manipulation et visualisation de données avec le langage de programmation R.

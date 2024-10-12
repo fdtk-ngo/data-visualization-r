@@ -1,0 +1,2 @@
+"0","ggplot(data = rp) + "
+"0","  geom_bar(aes(x = departement, fill = departement), show.legend = F) "

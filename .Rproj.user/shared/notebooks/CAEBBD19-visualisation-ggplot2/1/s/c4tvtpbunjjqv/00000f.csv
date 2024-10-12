@@ -1,0 +1,2 @@
+"0","ggplot(rp) +"
+"0","  geom_bar(aes(x = region, fill = pop_cl), position = ""dodge"")"

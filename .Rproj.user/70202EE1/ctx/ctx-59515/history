@@ -1,0 +1,83 @@
+library(tidyverse)
+counties <- readRDS("data/counties.rds")
+library(tidyverse)
+counties <- readRDS("data/counties.rds")
+counties_selected <- counties %>%
+select(state, county, population, private_work, public_work, self_employed)
+count(
+ungroup(
+slice_max(
+summarize(
+group_by(counties_selected, state, metro),
+total_pop = sum(population)),
+total_pop, n = 1)),
+metro)
+counties_selected %>%
+group_by(state, metro) %>%
+summarize(total_pop = sum(population)) %>%
+slice_max(total_pop, n = 1) %>%
+ungroup() %>%
+count(metro)
+library(tidyverse)
+counties <- readRDS("data/counties.rds")
+counties_selected <- counties %>%
+select(region, state, county, metro, population, walk)
+count(
+ungroup(
+slice_max(
+summarize(
+group_by(counties_selected, state, metro),
+total_pop = sum(population)),
+total_pop, n = 1)),
+metro)
+counties_selected %>%
+group_by(state, metro) %>%
+summarize(total_pop = sum(population)) %>%
+slice_max(total_pop, n = 1) %>%
+ungroup() %>%
+count(metro)
+counties_selected %>%
+group_by(state, metro)
+counties_selected %>%
+group_by(state, metro)
+counties_selected %>%
+group_by(state, metro) %>%
+summarize(total_pop = sum(population))
+counties_selected %>%
+group_by(state, metro) %>%
+summarize(total_pop = sum(population)) %>%
+slice_max(total_pop, n = 1)
+counties_selected %>%
+group_by(state, metro) %>%
+summarize(total_pop = sum(population)) %>%
+slice_max(total_pop, n = 1) %>%
+ungroup()
+counties_selected %>%
+group_by(state, metro) %>%
+summarize(total_pop = sum(population)) %>%
+slice_max(total_pop, n = 1) %>%
+ungroup() %>%
+count(metro)
+reticulate::repl_python()
+library(tidyverse)
+counties <- readRDS("data/counties.rds")
+counties_selected <- counties %>%
+select(region, state, county, metro, population, walk)
+names(counties)
+counties %>%
+select(state : black)
+names(counties)
+names(counties)
+names(counties)
+names(counties)
+names(counties)
+counties %>%
+select(starts_with("in"))
+164000*0.0135
+164000*0.0135-164000
+counties %>%
+select(-c(1 : 6))
+library(gapminder)
+gapminder
+data(gapminder)
+force(gapminder)

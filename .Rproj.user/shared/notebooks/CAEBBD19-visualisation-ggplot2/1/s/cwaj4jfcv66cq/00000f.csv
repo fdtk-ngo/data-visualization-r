@@ -1,0 +1,4 @@
+"0","plt1 <- rp %>% "
+"0","  group_by(region) %>% "
+"0","  summarise(n = n()) %>% "
+"0","  mutate(pct = round(n / sum(n), 2))"

@@ -1,0 +1,4 @@
+"0","ggplot(rp) + "
+"0","  geom_point(aes(x = dipl_sup, y = ouvr)) + "
+"0","  scale_x_continuous(""Pourcentage des diplômés du supérieur"", limits = c(0, 100)) + "
+"0","  scale_y_continuous(""Pourcentage des ouvriers"", limits = c(0, 100))"

@@ -1,0 +1,4 @@
+"0","ggplot(rp) + "
+"0","  geom_point(aes(x = dipl_sup, y = ouvr)) + "
+"0","  scale_x_log10() + "
+"0","  scale_y_log10()"

@@ -1,0 +1,25 @@
+project:
+  type: book
+
+book:
+  title: "Visualisation de données avec R"
+  author: "FDTK"
+  date: "21/03/2023"
+  chapters:
+    - index.qmd
+    - introduction.qmd
+    - import-export-donnees.qmd
+    - introduction-graphique.qmd
+    - visualisation-ggplot2.qmd
+    - references.qmd
+
+bibliography: references.bib
+
+format:
+  html:
+    theme: cosmo
+  pdf:
+    documentclass: scrreprt
+
+editor: visual
+

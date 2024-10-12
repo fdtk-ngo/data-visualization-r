@@ -1,0 +1,23 @@
+{
+  "visualisation-ggplot2.qmd": {
+    "visualisation-ggplot2.html": "8579dbee"
+  },
+  "index.qmd": {
+    "index.html": "c8e1590a"
+  },
+  "introduction.qmd": {
+    "introduction.html": "3a04f8b5"
+  },
+  "import-export-donnees.qmd": {
+    "import-export-donnees.html": "835623d1"
+  },
+  "manipulation-donnees.qmd": {
+    "manipulation-donnees.html": "be0293c8"
+  },
+  "introduction-graphique.qmd": {
+    "introduction-graphique.html": "e4d84acb"
+  },
+  "references.qmd": {
+    "references.html": "00bcca5c"
+  }
+}

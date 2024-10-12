@@ -1,0 +1,7 @@
+"0","library(questionr)"
+"0","data(rp2018)"
+"0",""
+"0","rp <- filter("
+"0","  rp2018,"
+"0","  departement %in% c(""Oise"", ""Rhône"", ""Hauts-de-Seine"", ""Bouches-du-Rhône"")"
+"0",")"

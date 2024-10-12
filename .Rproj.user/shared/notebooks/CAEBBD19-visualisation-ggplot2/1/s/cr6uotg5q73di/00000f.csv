@@ -1,0 +1,3 @@
+"0","ggplot(rp) + "
+"0","  geom_boxplot(aes(x = region, y = cadres), fill = ""wheat"", color = ""darkred"") +"
+"0","  coord_flip()"

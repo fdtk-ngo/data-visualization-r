@@ -1,0 +1,292 @@
+# Import et export de données
+
+Avant de pouvoir effectuer des analyses sur des données, il est souvent nécessaire de les importer dans un logiciel de traitement. La programmation en langage R offre une multitude de fonctions pour importer et exporter des données. Dans ce chapitre, nous verrons comment importer des données provenant de fichiers, de bases de données, du web et d'autres sources, ainsi que comment exporter des données dans différents formats. Grâce à ce chapitre, vous serez en mesure de travailler avec des jeux de données variés dans R, et ainsi, explorerez les analyses et les visualisations de données sous un nouvel angle.
+
+Il est très vivement conseillé de travailler avec les projets de RStudio pour faciliter l'accès aux fichiers et pouvoir regrouper l'ensemble des éléments d'une analyse dans un dossier
+
+Après importation, il est important de vériefier que celle-ci s'est bien déroulée à l'aide de certaines fonctions génériques tel que `dim()` pour la dimension(nombre de lignes et colonnes), `str()` pour connaitre la nature des variables, `head()` et `tail()` pour afficher respectivement les premières et dernières lignes du tableau.
+
+## Importer un fichier texte
+
+```{r}
+# sep = "\t"
+hotdogs <- read.delim("data/hotdogs.txt", header = F)
+head(hotdogs)
+```
+
+```{r}
+hotdogs <- read.table("data/hotdogs.txt", sep = "\t")
+head(hotdogs)
+```
+
+## Importer un fichier csv
+
+```{r}
+df <- read.csv("data/swimming_pools.csv")
+str(df)
+```
+
+`stringsAsFactors = T` permet de transformer les chaînes de caractères en facteurs.
+
+```{r}
+df <- read.csv("data/swimming_pools.csv", stringsAsFactors = T)
+str(df)
+```
+
+Le package `readr` contient des fonctions permettant importer les fichiers csv. Nous avons par exemple `read_csv()`, `read_tsv()` et `read_delim()`. Vous pouvez obtenir de l'aide pour ces fonctions en tapant par exemple `?readr:: read_tsv()`. Les fonctions du package `readr` sont connues pour être un peu plus rapides que les cellec du package de base. Ces fonctions importent les données sous forme de `tibble` qui est une forme améliorée du data.frame.
+
+## Importer un fichier Excel
+
+Pour lire des fichiers Excel, nous pouvons utiliser le package `readxl`. `excel_sheets()` permet de savoir les différentes feuilles du classeur et `read_excel()` importe les données sous forme de tibble/data.frame.
+
+Par défaut, lorsque nous affichons un tibble, seul les 10 premières lignes sont rétournées.
+
+```{r}
+library(readxl)
+```
+
+```{r}
+df <- read_excel("data/urbanpop.xls", sheet = 1)
+df
+```
+
+## Importer des fichier SPSS, SAS et Stata
+
+Souvent, les fichiers que nous voulons dans R proviennes des logiciels comme SPSS ou Stata. Les package `haven` et `foreign` dispose des fonctions permettant importer des différents fichiers. Il est toujours important de consulter la documentation pour avoir plus de détails.
+
+```{r}
+library(haven)
+```
+
+-   fichier SAS
+
+```{r}
+sales <- read_sas("data/sales.sas7bdat")
+str(sales)
+```
+
+-   fichier Stata
+
+```{r}
+florida <- read_dta("data/edequality.dta")
+tail(florida)
+```
+
+-   fichier SPSS
+
+```{r}
+demo <- foreign::read.spss("data/demo.sav", to.data.frame = T)
+head(demo)
+```
+
+L'argument `to.data.frame = T` permet de retourner le résultat sous forme de dataframe.
+
+## Importer les données d'une base de données
+
+R peut interfacer avec différents systèmes de gestion de bases de données comme MS SQL Server, PostgreSQL, SQLite, MariaDB, etc. Nous allons utiliser les packages `DBI` et `RSQLite`
+
+```{r}
+library(DBI)
+library(RSQLite)
+```
+
+Dans le cadre de cet exemple, nous allons utiliser une base de données nommée db.sqlite qui est en fait unee copie du dataframe `iris`.
+
+```{r message=FALSE, warning=FALSE, eval=FALSE}
+connexion <- DBI::dbConnect(RSQLite::SQLite(), dbname = "data/db.sqlite")
+dbWriteTable(connexion, "iris_info", iris)
+```
+
+Lorsqu'on veut travailler avec une base de données, la premère de chose consiste à établir une connexion avec celle-ci. Ceci est réalisée avec l'aide de la fonction `dbConnect()` de `DBI`. Nous stockons cette connexion dans l'objet nommé `connexion` que nous pouvons utiliser pour exploiter la base.
+
+```{r}
+connexion <- dbConnect(SQLite(), dbname = "data/db.sqlite")
+```
+
+-   Afficher les tables de la base de données
+
+```{r}
+dbListTables(connexion)
+```
+
+-   Afficher les champs (variables) de la table `iris_info`
+
+```{r}
+dbListFields(conn = connexion, "iris_info")
+```
+
+-   Lire le contenu d'une table
+
+```{r}
+iris_info <- dbReadTable(conn = connexion, "iris_info")
+head(iris_info)
+```
+
+Nous pouvons aussi envoyer une requête SQL directement à la base et récupérer le résultat :
+
+```{r}
+query = "
+  SELECT *
+  FROM iris_info
+  WHERE Species = 'versicolor'
+"
+
+res <- dbGetQuery(conn = connexion, query)
+head(res)
+```
+
+La dernière chose à faire lorsqu'on a fini de travailler avec une base de données c'est de se déconnecter avec la commande `dbDisconnect()`.
+
+```{r}
+dbDisconnect(connexion)
+```
+
+## Importer les données du web
+
+Accéder aux données issues du web fait partie de ce qu'on appelle le web scraping. Il s'agit d'un vaste domaine qui exige des connaissances de diverse technologies utlilisées pour distribuer du contenu dans le web (comme HTML, XML ou JSON). Dans ce qui suit, nous allons juste introduire quelques fonctions permettant de lire des fichiers texte, csv ou excel stockés dans le web et des tableaux HTML.
+
+-   Importer un fichier CSV
+
+La forme la plus simple d'obtenir les données en ligne est d'importer les données stockées comme des fichiers texte, csv ou excel. Dans cet exemple, nous utilisons l'URL d'un fichier CSV sur le site GitHub : https://raw.githubusercontent.com/mwaskom/seaborn-data/master/diamonds.csv. Nous utilisons la fonction read.csv() pour importer le fichier CSV et le stocker dans un dataframe appelé df. Enfin, nous affichons les premières lignes du dataframe avec la fonction head().
+
+```{r eval=FALSE, include=TRUE}
+# spécifier l'URL du fichier CSV à importer
+url <- "https://raw.githubusercontent.com/mwaskom/seaborn-data/master/diamonds.csv"
+
+# importer le fichier CSV en tant que dataframe
+library(readr)
+df <- read_csv(url)
+
+# afficher les premières lignes du dataframe
+head(df)
+```
+
+```{r echo=FALSE}
+library(ggplot2)
+#data("diamonds")
+head(diamonds)
+```
+
+-   Importer une table HTML avec rvest
+
+e package rvest est une extension de R qui permet de récupérer des données à partir de pages web. C'est une bibliothèque d'outils pour le web scraping, qui permet de collecter des données structurées et non structurées à partir de sites HTML et de les transformer en formats utilisables. Le package est conçu pour manipuler des pages web en utilisant la syntaxe de R, facilitant ainsi l'extraction sélective de données.
+
+Dans cet exemple, vous allez voir comment récupérer du texte et un tableau de données à partir de wikipedia.
+
+```{r eval=FALSE}
+library(rvest)
+
+url <- "https://fr.wikipedia.org/wiki/Liste_des_pays_par_population"
+
+page <- read_html(url)
+```
+
+La commande `html_elements()` permet de sélectionner un élément précis. Ici, vous sélectionnez une table. Ensuite vous précisez la table que vous vous, ici la première. Nous verons par la suite l'utilisation du pipe (`%>%`) du package `magrittr`.
+
+
+```{r eval=FALSE}
+library(magrittr)
+
+tabs <- page %>% 
+  html_elements("table")
+
+#length(tabs)
+
+tab1 <- tabs[[1]]
+```
+
+Vous utlisez alors la commande `html_table()` pour extraire la table sous forme de data.frame/tibble.
+
+```{r, eval=FALSE}
+df_table1 <- tab1 %>% 
+  html_table()
+
+head(df_table1)
+```
+
+```{r, echo=FALSE}
+df_table1 <- readRDS("data/df_table1")
+head(df_table1)
+```
+
+Le code suivant permet de mettre en forme les données (arranger les noms de variables et transformer les chaînes de caractères en valeurs numériques).
+
+```{r, eval=FALSE}
+library(tidyverse)
+library(stringi)
+
+df_table1 <- janitor::clean_names(df_table1)
+
+df_table1 %>% 
+  mutate(
+    population_au_1er_juillet_2021 = as.numeric(
+      stri_replace_all_charclass(population_au_1er_juillet_2021, "\\p{WHITE_SPACE}", "")
+    ),
+    projection_projetee_au_1er_janvier_2023 = as.numeric(
+      stri_replace_all_charclass(projection_projetee_au_1er_janvier_2023, "\\p{WHITE_SPACE}", "")
+    )
+  )
+```
+
+
+De façon similaire vous pouvez récupérer du texte :
+
+Ce code permet de récupérer le troisième paragraphe à partir de cette page web.
+
+```{r eval=FALSE}
+texts <- page %>% 
+  html_elements("p")
+
+
+texts_3 <- texts[[3]]
+
+text2 <- texts_3 %>% 
+  html_text2()
+
+text2  
+```
+
+```{r echo=FALSE}
+load("data/texts.RData")
+text2
+```
+
+
+## Exporter les données
+
+R permet d'exporter les données vers certains logiciels comme Excel, SPSS, Stata et SAS.
+
+-   `write_csv`, `write_csv2`, `read_tsv` du package \`readr\`\` permettent d'enregistrer un tableau ou un tibble dans un fichier au format texte délimité
+
+-   `write_sas`, `write_sav` et `write_dta` du package `haven` permettent d'enregistrer un tableau de données respectivement vers SAS, SPSS et Stata.
+
+-   `write.xlsx` du package `xlxs` permet d'exporter vers Excel.
+
+Dans tous les cas, le premier argument est le nom de l'objet contenant les données et le deuxième correspond à une chaîne de caractère contenant le nom et l'extension du fichier de sortie. Un exemple d'export vers excel est donnné ci-après.
+
+```{r eval=FALSE}
+xlsx::write.xlsx(objet_r, file = "data/nom_du_fichier.xlsx")
+```
+
+R permet aussi d'enregistrer tout type d'objet dans un fichier de format `Rdata`. C'est un format propre à R et peut stocker plusieurs objets en son sein.
+
+La commande suivante permet d'enregistrer les objets `X1` et `df` dans un fichier nommé `fiche_1`.
+
+```{r eval=FALSE}
+save(X1, df, file = "fiche_1.RData")
+```
+
+Pour charger ces objets lors d'une session, vous pouvez la focntion `load()`:
+
+```{r eval=FALSE}
+load("fiche_1.RData")
+```
+
+Le seul problème avec `load()` est qu'il importe les objets avec leur nom d'origine. Si la session contient déjà d'autres objets, ceux-ci seront écrasés.
+
+La solution est d'utiliser les fonctions `saveRDS()` et `readRDS()`, qui permettent d'enregistrer un unique objet, et de le charger dans notre session avec le nom que l'on souhaite.
+
+```{r eval=FALSE}
+saveRDS(df, file = "fiche_1.rds")
+df <- readRDS("fiche_1.rds")
+```
